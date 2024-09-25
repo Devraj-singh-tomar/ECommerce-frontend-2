@@ -47,6 +47,22 @@ $color3: rgb(0, 104, 136);
 @import "admin-styles/dashboardapp";
 @import "admin-styles/mediaquery";
 
+// orderspage css
+.container {
+  max-width: 1367px;
+  width: 70%;
+  margin: auto;
+  overflow: auto;
+  padding: 0 1rem;
+
+  > h1 {
+    @include heading(1px, 600);
+    margin: 0rem 0;
+    text-align: left;
+  }
+}
+
+//headers component css
 .header {
   @include flex(row, flex-end, stretch, 2.2rem);
   padding: 1rem;
