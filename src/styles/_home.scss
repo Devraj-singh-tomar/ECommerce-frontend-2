@@ -47,9 +47,10 @@
 }
 
 .product-card {
-  width: 15rem;
-  height: 17rem;
+  width: 13rem;
+  height: 16rem;
   padding: 1rem;
+  border-radius: 5px;
   flex: none;
   @include flex(column, flex-start, center, 4px);
   position: relative;
@@ -60,8 +61,8 @@
   }
 
   img {
-    @include square(calc(17rem - 5rem));
-    object-fit: cover;
+    @include square(calc(18rem - 9rem));
+    object-fit: contain;
     margin: 1rem;
   }
 
@@ -81,6 +82,8 @@
     top: 0;
     left: 0;
     background-color: #252a3075;
+    border-radius: 5px;
+
     @include flex;
     button {
       @include flex;
