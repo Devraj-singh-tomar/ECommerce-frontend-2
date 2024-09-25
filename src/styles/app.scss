@@ -35,7 +35,8 @@ $color3: rgb(0, 104, 136);
 
 @import "admin-styles/mixin";
 
-@import "_home";
+@import "home";
+@import "cart";
 
 @import "admin-styles/dashboard";
 @import "admin-styles/products";
@@ -47,7 +48,9 @@ $color3: rgb(0, 104, 136);
   @include flex(row, flex-end, stretch, 2.2rem);
   padding: 1rem;
   background-color: #133c55;
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 9;
 
   > div {
     display: flex;
@@ -94,7 +97,7 @@ $color3: rgb(0, 104, 136);
     width: 100px;
     position: absolute;
     left: calc(100% - 110px);
-    top: 8%;
+    top: 4rem;
     z-index: 1;
 
     > div {
