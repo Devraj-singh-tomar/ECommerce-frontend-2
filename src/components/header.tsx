@@ -4,13 +4,13 @@ import { FaCartShopping } from "react-icons/fa6";
 import { GrLogin } from "react-icons/gr";
 import { MdLogout } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { User } from "../types/types";
 
-const user = {
-  _id: "",
-  role: "",
-};
+interface PropsType {
+  user: User | null;
+}
 
-const Header = () => {
+const Header = ({ user }: PropsType) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const logoutHandler = () => {
