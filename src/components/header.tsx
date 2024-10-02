@@ -6,8 +6,8 @@ import { MdLogout } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 const user = {
-  _id: "asd",
-  role: "admin",
+  _id: "",
+  role: "",
 };
 
 const Header = () => {
