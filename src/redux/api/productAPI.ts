@@ -2,6 +2,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
   AllProductsResponse,
   CategoriesResponse,
+  MessageResponse,
+  NewProductRequest,
   SearchProductRequest,
   SearchProductResponse,
 } from "../../types/apiTypes";
@@ -11,17 +13,23 @@ export const productAPI = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: `${import.meta.env.VITE_SERVER}/api/v1/product/`,
   }),
+
+  tagTypes: ["product"],
+
   endpoints: (builder) => ({
     latestProducts: builder.query<AllProductsResponse, string>({
       query: () => "latest",
+      providesTags: ["product"],
     }),
 
     allProducts: builder.query<AllProductsResponse, string>({
       query: (id) => `admin-products?id=${id}`,
+      providesTags: ["product"],
     }),
 
     categories: builder.query<CategoriesResponse, string>({
       query: () => `categories`,
+      providesTags: ["product"],
     }),
 
     searchProducts: builder.query<SearchProductResponse, SearchProductRequest>({
@@ -34,6 +42,16 @@ export const productAPI = createApi({
 
         return base;
       },
+      providesTags: ["product"],
+    }),
+
+    newProduct: builder.mutation<MessageResponse, NewProductRequest>({
+      query: ({ formData, id }) => ({
+        url: `new?id=${id}`,
+        method: "POST",
+        body: formData,
+      }),
+      invalidatesTags: ["product"],
     }),
   }),
 });
@@ -43,4 +61,5 @@ export const {
   useAllProductsQuery,
   useCategoriesQuery,
   useSearchProductsQuery,
+  useNewProductMutation,
 } = productAPI;
