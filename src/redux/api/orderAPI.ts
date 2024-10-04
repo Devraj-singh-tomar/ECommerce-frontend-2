@@ -7,7 +7,7 @@ import {
   UpdateOrderRequest,
 } from "../../types/apiTypes";
 
-export const orderApi = createApi({
+export const orderAPI = createApi({
   reducerPath: "orderApi",
 
   baseQuery: fetchBaseQuery({
@@ -28,7 +28,7 @@ export const orderApi = createApi({
 
     updateOrder: builder.mutation<MessageResponse, UpdateOrderRequest>({
       query: ({ userId, orderId }) => ({
-        url: `${orderId}/${userId}`,
+        url: `${orderId}?id=${userId}`,
         method: "PUT",
       }),
       invalidatesTags: ["orders"],
@@ -36,7 +36,7 @@ export const orderApi = createApi({
 
     deleteOrder: builder.mutation<MessageResponse, UpdateOrderRequest>({
       query: ({ userId, orderId }) => ({
-        url: `${orderId}/${userId}`,
+        url: `${orderId}?id=${userId}`,
         method: "DELETE",
       }),
       invalidatesTags: ["orders"],
@@ -66,4 +66,4 @@ export const {
   useMyOrderQuery,
   useAllOrderQuery,
   useOrderDetailsQuery,
-} = orderApi;
+} = orderAPI;
