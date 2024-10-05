@@ -111,3 +111,16 @@ export type Pie = {
     customer: number;
   };
 };
+
+export type Bar = {
+  users: number[];
+  products: number[];
+  order: number[];
+};
+
+export type Line = {
+  users: number[];
+  products: number[];
+  discount: number[];
+  revenue: number[];
+};
