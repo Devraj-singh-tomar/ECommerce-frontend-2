@@ -13,6 +13,16 @@ export type MessageResponse = {
   message: string;
 };
 
+export type AllUsersResponse = {
+  success: boolean;
+  users: User[];
+};
+
+export type DeleteUserRequest = {
+  userId: string;
+  adminUserId: string;
+};
+
 export type UserResponse = {
   success: boolean;
   user: User;
