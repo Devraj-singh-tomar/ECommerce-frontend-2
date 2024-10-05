@@ -49,7 +49,7 @@ const Header = ({ user }: PropsType) => {
           <dialog open={isOpen}>
             <div>
               {user.role === "admin" && (
-                <Link onClick={() => setIsOpen(false)} to={"/admin/dashboard"}>
+                <Link onClick={() => setIsOpen(false)} to={"/admin/product"}>
                   Admin
                 </Link>
               )}
