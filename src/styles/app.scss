@@ -125,6 +125,29 @@ $color3: rgb(0, 104, 136);
   }
 }
 
+.checkout-container {
+  max-width: 400px;
+  width: 100%;
+  margin: auto;
+  > form {
+    margin-top: 8vw;
+    @include flex(column, flex-start, stretch, 2rem);
+
+    > button {
+      padding: 0.8rem;
+      background-color: #adff2f;
+      width: 100%;
+      font-size: 1.4rem;
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      &:hover {
+        background-color: #97e325;
+      }
+    }
+  }
+}
+
 // -----------------------------------------------------------------
 .admin-container {
   @include grid(1fr 4fr, 2rem);
