@@ -5,24 +5,21 @@ import { HiTrendingDown, HiTrendingUp } from "react-icons/hi";
 import AdminSidebar from "../../components/admin/AdminSidebar";
 import { BarChart, DoughnutChart } from "../../components/admin/Charts";
 import Table from "../../components/admin/DashboardTable";
-import { useStatsQuery } from "../../redux/api/dashboardAPI";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import { Skeleton } from "../../components/loader";
+import { useStatsQuery } from "../../redux/api/dashboardAPI";
 import { Navigate } from "react-router-dom";
-import { getLastMonth } from "../../utils/feature";
+import { Skeleton } from "../../components/loader";
 
 const userImg =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp";
-
-const { last6Month } = getLastMonth();
 
 const Dashboard = () => {
   const { user } = useSelector((state: RootState) => state.userReducer);
 
   const { isLoading, data, isError } = useStatsQuery(user?._id!);
 
-  const stats = data?.stats!;
+  const stats = data?.stats! || {};
 
   if (isError) return <Navigate to={"/"} />;
 
@@ -74,7 +71,7 @@ const Dashboard = () => {
               <div className="revenue-chart">
                 <h2>Revenue & Transaction</h2>
                 <BarChart
-                  labels={last6Month}
+                  // labels={}
                   data_1={stats.chart.revenue}
                   data_2={stats.chart.order}
                   title_1="Revenue"
