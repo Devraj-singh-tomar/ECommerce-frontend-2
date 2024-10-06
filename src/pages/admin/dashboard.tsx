@@ -10,9 +10,12 @@ import { RootState } from "../../redux/store";
 import { useStatsQuery } from "../../redux/api/dashboardAPI";
 import { Navigate } from "react-router-dom";
 import { Skeleton } from "../../components/loader";
+import { getLastMonth } from "../../utils/feature";
 
 const userImg =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp";
+
+const { last6Month: months } = getLastMonth();
 
 const Dashboard = () => {
   const { user } = useSelector((state: RootState) => state.userReducer);
@@ -71,7 +74,7 @@ const Dashboard = () => {
               <div className="revenue-chart">
                 <h2>Revenue & Transaction</h2>
                 <BarChart
-                  // labels={}
+                  labels={months}
                   data_1={stats.chart.revenue}
                   data_2={stats.chart.order}
                   title_1="Revenue"
