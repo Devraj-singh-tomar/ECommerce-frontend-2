@@ -46,7 +46,7 @@ const Shipping = () => {
         },
         {
           headers: {
-            "content-type": "application/json",
+            "Content-Type": "application/json",
           },
         }
       );
