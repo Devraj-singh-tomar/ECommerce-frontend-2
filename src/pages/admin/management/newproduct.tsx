@@ -21,6 +21,7 @@ const NewProduct = () => {
   const [price, setPrice] = useState<number>(1000);
   const [stock, setStock] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [description, setDescription] = useState<string>("");
 
   const photos = useFileHandler("multiple", 10, 5);
 
@@ -37,6 +38,7 @@ const NewProduct = () => {
       const formData = new FormData();
 
       formData.set("name", name);
+      formData.set("description", description);
       formData.set("price", price.toString());
       formData.set("stock", stock.toString());
       formData.set("category", category);
@@ -72,6 +74,18 @@ const NewProduct = () => {
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
+
+            <div>
+              <label>Description</label>
+              <input
+                type="text"
+                required
+                placeholder="Description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
+
             <div>
               <label>Price</label>
               <input
@@ -82,6 +96,7 @@ const NewProduct = () => {
                 onChange={(e) => setPrice(Number(e.target.value))}
               />
             </div>
+
             <div>
               <label>Stock</label>
               <input

@@ -1,0 +1,89 @@
+.product-detail {
+  padding: 2rem;
+
+  > main {
+    display: flex;
+    height: 80vh;
+    max-width: 1920px;
+    width: 100%;
+    margin: auto;
+
+    > section {
+      width: 100%;
+      min-height: 80vh;
+      position: relative;
+
+      > code {
+        text-transform: uppercase;
+        font-size: 0.9rem;
+        font-weight: 500;
+        border: 1px solid #133c55;
+        border-radius: 8px;
+        padding: 0.4rem;
+      }
+
+      > h1 {
+        font-size: 2rem;
+        margin: 1rem 0;
+      }
+
+      > p {
+        margin: 2rem 0;
+        letter-spacing: 0.5px;
+        word-spacing: 3px;
+        font-size: medium;
+        color: rgb(42, 40, 40);
+      }
+
+      > article {
+        display: flex;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        > div {
+          @include flex(row, flex-start);
+
+          > button {
+            background-color: #adff2f;
+            color: black;
+            border: none;
+            @include square(2rem);
+            border-radius: 5px;
+            @include flex;
+            cursor: pointer;
+            font-size: 1.3rem;
+            &:hover {
+              background-color: #afec55;
+            }
+          }
+        }
+
+        button {
+          background-color: #adff2f;
+          padding: 0.7rem 0.6rem;
+          border: none;
+          text-decoration: none;
+          color: black;
+          @include flex;
+          text-transform: uppercase;
+          border-radius: 5px;
+          cursor: pointer;
+
+          &:hover {
+            background-color: #afec55;
+          }
+        }
+      }
+
+      > h2 {
+        font-size: 2rem;
+        color: #072c44;
+        position: absolute;
+        bottom: 0;
+      }
+    }
+  }
+}

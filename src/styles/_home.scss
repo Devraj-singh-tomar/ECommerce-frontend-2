@@ -90,7 +90,17 @@
       @include square(3rem);
       border-radius: 100%;
       border: none;
-      background-color: #2b678d;
+      background-color: #1867cd;
+      color: $color1;
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+    a {
+      @include flex;
+      @include square(3rem);
+      border-radius: 100%;
+      border: none;
+      background-color: #ad23cf;
       color: $color1;
       cursor: pointer;
       font-size: 1.1rem;

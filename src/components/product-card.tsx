@@ -1,5 +1,7 @@
 import { FaPlus } from "react-icons/fa6";
 import { CartItem } from "../types/types";
+import { Link } from "react-router-dom";
+import { TfiViewListAlt } from "react-icons/tfi";
 
 type ProductsProps = {
   productId: string;
@@ -40,8 +42,12 @@ const ProductCard = ({
             })
           }
         >
-          <FaPlus />
+          <FaPlus title="add to cart" />
         </button>
+
+        <Link to={`/product/${productId}`}>
+          <TfiViewListAlt title="view" />
+        </Link>
       </div>
     </div>
   );

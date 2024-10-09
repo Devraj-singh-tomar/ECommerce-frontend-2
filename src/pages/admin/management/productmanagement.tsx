@@ -23,19 +23,23 @@ const Productmanagement = () => {
 
   const { data, isLoading, isError } = useProductDetailsQuery(params.id!);
 
-  const { price, photos, name, stock, category } = data?.product || {
-    photos: [],
-    category: "",
-    name: "",
-    stock: 0,
-    price: 0,
-  };
+  const { price, photos, name, stock, category, description } =
+    data?.product || {
+      photos: [],
+      category: "",
+      name: "",
+      description: "",
+      stock: 0,
+      price: 0,
+    };
 
   const [btnLoading, setBtnLoading] = useState<boolean>(false);
   const [priceUpdate, setPriceUpdate] = useState<number>(price);
   const [stockUpdate, setStockUpdate] = useState<number>(stock);
   const [nameUpdate, setNameUpdate] = useState<string>(name);
   const [categoryUpdate, setCategoryUpdate] = useState<string>(category);
+  const [descriptionUpdate, setDescriptionUpdate] =
+    useState<string>(description);
 
   const [updateProduct] = useUpdateProductMutation();
 
@@ -52,6 +56,7 @@ const Productmanagement = () => {
       const formData = new FormData();
 
       if (nameUpdate) formData.set("name", nameUpdate);
+      if (descriptionUpdate) formData.set("description", descriptionUpdate);
       if (priceUpdate) formData.set("price", priceUpdate.toString());
       if (stockUpdate !== undefined)
         formData.set("stock", stockUpdate.toString());
@@ -89,6 +94,7 @@ const Productmanagement = () => {
   useEffect(() => {
     if (data) {
       setNameUpdate(data.product.name);
+      setDescriptionUpdate(data.product.description);
       setPriceUpdate(data.product.price);
       setStockUpdate(data.product.stock);
       setCategoryUpdate(data.product.category);
@@ -132,6 +138,16 @@ const Productmanagement = () => {
                   />
                 </div>
                 <div>
+                  <label>Description</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Description"
+                    value={descriptionUpdate}
+                    onChange={(e) => setDescriptionUpdate(e.target.value)}
+                  />
+                </div>
+                <div>
                   <label>Price</label>
                   <input
                     type="number"
@@ -172,10 +188,28 @@ const Productmanagement = () => {
 
                 {photosFile.error && <p>{photosFile.error}</p>}
 
-                {photosFile.preview &&
-                  photosFile.preview.map((img, i) => (
-                    <img key={i} src={img} alt="New image" />
-                  ))}
+                {photosFile.preview && (
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "0.5rem",
+                      overflowX: "auto",
+                    }}
+                  >
+                    {photosFile.preview.map((img, i) => (
+                      <img
+                        style={{
+                          height: 100,
+                          width: 100,
+                          objectFit: "cover",
+                        }}
+                        key={i}
+                        src={img}
+                        alt="New image"
+                      />
+                    ))}
+                  </div>
+                )}
 
                 <button disabled={btnLoading} type="submit">
                   Update

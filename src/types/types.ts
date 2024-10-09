@@ -13,6 +13,8 @@ export interface Product {
   price: number;
   stock: number;
   category: string;
+  description: string;
+  ratings: number;
   photos: {
     public_id: string;
     url: string;
