@@ -27,6 +27,7 @@ const Dashboard = lazy(() => import("./pages/admin/dashboard"));
 const Products = lazy(() => import("./pages/admin/products"));
 const Customers = lazy(() => import("./pages/admin/customers"));
 const Transaction = lazy(() => import("./pages/admin/transaction"));
+const Discount = lazy(() => import("./pages/admin/discount"));
 const Barcharts = lazy(() => import("./pages/admin/charts/barcharts"));
 const Piecharts = lazy(() => import("./pages/admin/charts/piecharts"));
 const Linecharts = lazy(() => import("./pages/admin/charts/linecharts"));
@@ -40,6 +41,10 @@ const ProductManagement = lazy(
 const TransactionManagement = lazy(
   () => import("./pages/admin/management/transactionmanagement")
 );
+const DiscountManagement = lazy(
+  () => import("./pages/admin/management/discountmanagement")
+);
+const NewDiscount = lazy(() => import("./pages/admin/management/newdiscount"));
 
 const App = () => {
   const { user, loading } = useSelector(
@@ -104,6 +109,7 @@ const App = () => {
             <Route path="/admin/product" element={<Products />} />
             <Route path="/admin/customer" element={<Customers />} />
             <Route path="/admin/transaction" element={<Transaction />} />
+            <Route path="/admin/discount" element={<Discount />} />
             {/* Charts */}
             <Route path="/admin/chart/bar" element={<Barcharts />} />
             <Route path="/admin/chart/pie" element={<Piecharts />} />
@@ -121,6 +127,13 @@ const App = () => {
             <Route
               path="/admin/transaction/:id"
               element={<TransactionManagement />}
+            />
+
+            <Route path="/admin/discount/new" element={<NewDiscount />} />
+
+            <Route
+              path="/admin/discount/:id"
+              element={<DiscountManagement />}
             />
           </Route>
           <Route path="*" element={<NotFound />} />
