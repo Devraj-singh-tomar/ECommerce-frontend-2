@@ -10,7 +10,7 @@ import {
 } from "../../../redux/api/productAPI";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { Skeleton } from "../../../components/loader";
-import { responseToast } from "../../../utils/feature";
+import { responseToast, transformImage } from "../../../utils/feature";
 import { useFileHandler } from "6pp";
 
 const Productmanagement = () => {
@@ -113,7 +113,7 @@ const Productmanagement = () => {
           <>
             <section>
               <strong>ID - {data?.product._id}</strong>
-              <img src={photos?.[0]?.url} alt="Product" />
+              <img src={transformImage(photos?.[0]?.url)} alt="Product" />
               <p>{name}</p>
               {stock > 0 ? (
                 <span className="green">{stock} Available</span>

@@ -1,7 +1,6 @@
 import { FaTrash } from "react-icons/fa";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import AdminSidebar from "../../../components/admin/AdminSidebar";
-import { server } from "../../../redux/store";
 import { Order, OrderItem } from "../../../types/types";
 import { UserReducerInitialState } from "../../../types/reducerTypes";
 import { useSelector } from "react-redux";
@@ -11,7 +10,7 @@ import {
   useUpdateOrderMutation,
 } from "../../../redux/api/orderAPI";
 import { Skeleton } from "../../../components/loader";
-import { responseToast } from "../../../utils/feature";
+import { responseToast, transformImage } from "../../../utils/feature";
 
 const defaultData: Order = {
   shippingInfo: {
@@ -96,7 +95,7 @@ const TransactionManagement = () => {
                 <ProductCard
                   key={i._id}
                   name={i.name}
-                  photo={`${server}/${i.photo}`}
+                  photo={i.photo}
                   productId={i.productId}
                   _id={i._id}
                   quantity={i.quantity}
@@ -157,7 +156,7 @@ const ProductCard = ({
   productId,
 }: OrderItem) => (
   <div className="transaction-product-card">
-    <img src={photo} alt={name} />
+    <img src={transformImage(photo, 200)} alt={name} />
     <Link to={`/product/${productId}`}>{name}</Link>
     <span>
       ₹{price} X {quantity} = ₹{price * quantity}

@@ -1,6 +1,7 @@
 import { FaTrash } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import type { CartItem } from "../types/types";
+import { transformImage } from "../utils/feature";
 
 type CartItemProps = {
   cartItem: CartItem;
@@ -18,9 +19,16 @@ const CartItem = ({
   const { productId, photo, name, price, quantity } = cartItem;
   return (
     <div className="cart-item">
-      <img src={photo} alt={name} />
+      <img src={transformImage(photo, 200)} alt={name} />
       <article>
-        <Link to={`/product/${productId}`}>{name}</Link>
+        <Link
+          style={{
+            textDecoration: "underline",
+          }}
+          to={`/product/${productId}`}
+        >
+          {name}
+        </Link>
         <span>₹{price}</span>
       </article>
 
