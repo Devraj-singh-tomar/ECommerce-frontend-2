@@ -93,8 +93,88 @@
     // margin-right: auto;
     margin-top: 3rem;
 
-    > h2 {
-      font-size: 2rem;
+    > div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      > h2 {
+        font-size: 2rem;
+      }
+
+      > h3 {
+        color: #072c44;
+        cursor: pointer;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+.review-dialog {
+  position: relative;
+  border-radius: 15px;
+  width: 40rem;
+  max-height: 65vh;
+  min-height: 30vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  padding: 2rem;
+
+  > button {
+    outline: none;
+    position: absolute;
+    right: 0.8rem;
+    top: 0.9rem;
+    border: none;
+    background: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 0.2rem;
+
+    &:hover {
+      outline: none;
+      background-color: red;
+      color: white;
+      border-radius: 50%;
+    }
+  }
+
+  > h2 {
+    text-transform: uppercase;
+  }
+
+  > form {
+    margin-top: 1rem;
+    @include flex(column, center, stretch);
+    > textarea {
+      padding: 1rem;
+      border: 1px solid rgb(34, 34, 34);
+      border-radius: 5px;
+      font-size: 1.1rem;
+      max-width: 100%;
+      width: 100%;
+      max-height: 30vh;
+      min-height: 15vh;
+    }
+    > button {
+      background-color: #adff2f;
+      color: black;
+      border: none;
+      cursor: pointer;
+      padding: 1rem;
+      border-radius: 8px;
+      text-transform: uppercase;
+      font-size: 1.2rem;
+      &:hover {
+        background-color: #afec55;
+      }
     }
   }
 }

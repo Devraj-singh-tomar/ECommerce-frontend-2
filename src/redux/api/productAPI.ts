@@ -6,6 +6,7 @@ import {
   DeleteProductRequest,
   MessageResponse,
   NewProductRequest,
+  NewReviewRequest,
   ProductResponse,
   SearchProductRequest,
   SearchProductResponse,
@@ -59,6 +60,21 @@ export const productAPI = createApi({
       providesTags: ["product"],
     }),
 
+    newReview: builder.mutation<MessageResponse, NewReviewRequest>({
+      query: ({ rating, comment, productId, userId }) => ({
+        url: `review/new/${productId}?id=${userId}`,
+        method: "POST",
+        body: {
+          rating,
+          comment,
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }),
+      invalidatesTags: ["product"],
+    }),
+
     updateProduct: builder.mutation<MessageResponse, UpdateProductRequest>({
       query: ({ formData, userId, productId }) => ({
         url: `${productId}?id=${userId}`,
@@ -88,6 +104,7 @@ export const productAPI = createApi({
 });
 
 export const {
+  useNewReviewMutation,
   useAllReviewsOfProductQuery,
   useLatestProductsQuery,
   useAllProductsQuery,

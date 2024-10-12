@@ -1,28 +1,40 @@
 import { Navigate, useParams } from "react-router-dom";
 import {
   useAllReviewsOfProductQuery,
+  useNewReviewMutation,
   useProductDetailsQuery,
 } from "../redux/api/productAPI";
 import { Skeleton } from "../components/loader";
-import { Slider } from "6pp";
+import { Slider, useRating } from "6pp";
 import RatingComponent from "../components/ratings";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { CartItem, Review } from "../types/types";
 import toast from "react-hot-toast";
 import { addToCart } from "../redux/reducer/cartReducer";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { IoStar } from "react-icons/io5";
+import { IoIosStarOutline } from "react-icons/io";
+import { AiOutlineClose } from "react-icons/ai";
+import { RootState } from "../redux/store";
+import { responseToast } from "../utils/feature";
 
 const ProductDetails = () => {
+  const { user } = useSelector((state: RootState) => state.userReducer);
+
   const params = useParams();
   const dispatch = useDispatch();
 
   const [quantity, setQuantity] = useState<number>(1);
+  const [reviewComment, setReviewComment] = useState("");
+  const [reviewButtonDisabled, setReviewButtonDisabled] =
+    useState<boolean>(false);
 
   const increment = () => setQuantity((prev) => prev + 1);
   const decrement = () => setQuantity((prev) => prev - 1);
 
   const { isLoading, isError, data } = useProductDetailsQuery(params.id!);
   const reviewsResponse = useAllReviewsOfProductQuery(params.id!);
+  const [createReview] = useNewReviewMutation();
 
   if (isError) return <Navigate to={"/not-found"} />;
 
@@ -34,6 +46,47 @@ const ProductDetails = () => {
     dispatch(addToCart(cartItem));
 
     toast.success("Item added");
+  };
+
+  const reviewDialogRef = useRef<HTMLDialogElement>(null);
+
+  const showDialog = () => {
+    reviewDialogRef.current?.showModal();
+  };
+
+  const {
+    Ratings: RatingsEditable,
+    rating,
+    setRating,
+  } = useRating({
+    IconFilled: <IoStar />,
+    IconOutline: <IoIosStarOutline />,
+    value: 0,
+    selectable: true,
+    styles: { display: "flex", justifyContent: "flex-start" },
+  });
+
+  const reviewCloseHandler = () => {
+    reviewDialogRef.current?.close();
+    setRating(0);
+    setReviewComment("");
+  };
+
+  const submitReview = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setReviewButtonDisabled(true);
+    reviewCloseHandler();
+
+    const res = await createReview({
+      comment: reviewComment,
+      rating,
+      userId: user?._id,
+      productId: params.id!,
+    });
+
+    setReviewButtonDisabled(false);
+
+    responseToast(res, null, "");
   };
 
   return (
@@ -106,8 +159,40 @@ const ProductDetails = () => {
         </>
       )}
 
+      <dialog ref={reviewDialogRef} className="review-dialog">
+        <button onClick={reviewCloseHandler}>
+          <AiOutlineClose />
+        </button>
+        <h2>write your review</h2>
+        <form onSubmit={submitReview}>
+          <textarea
+            value={reviewComment}
+            onChange={(e) => setReviewComment(e.target.value)}
+            placeholder="your review..."
+          />
+          <h2
+            style={{
+              cursor: "pointer",
+              width: "fit-content",
+            }}
+          >
+            <RatingsEditable />
+          </h2>
+          <button disabled={reviewButtonDisabled} type="submit">
+            rate
+          </button>
+        </form>
+      </dialog>
+
       <section>
-        <h2 id="reviewScroll">Reviews</h2>
+        <div>
+          {reviewsResponse.isLoading ? null : (
+            <>
+              <h2 id="reviewScroll">Reviews</h2>
+              <h3 onClick={showDialog}>rate this product</h3>
+            </>
+          )}
+        </div>
 
         <div
           style={{

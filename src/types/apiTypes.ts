@@ -87,6 +87,13 @@ export type NewProductRequest = {
   formData: FormData;
 };
 
+export type NewReviewRequest = {
+  rating: number;
+  comment: string;
+  userId?: string;
+  productId: string;
+};
+
 export type NewOrderRequest = {
   shippingInfo: ShippingInfo;
   orderItems: CartItem[];
