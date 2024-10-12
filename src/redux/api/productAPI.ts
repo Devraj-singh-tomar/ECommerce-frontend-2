@@ -4,6 +4,7 @@ import {
   AllReviewsOfProductResponse,
   CategoriesResponse,
   DeleteProductRequest,
+  DeleteReviewRequest,
   MessageResponse,
   NewProductRequest,
   NewReviewRequest,
@@ -75,6 +76,14 @@ export const productAPI = createApi({
       invalidatesTags: ["product"],
     }),
 
+    deleteReview: builder.mutation<MessageResponse, DeleteReviewRequest>({
+      query: ({ reviewId, userId }) => ({
+        url: `review/${reviewId}?id=${userId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["product"],
+    }),
+
     updateProduct: builder.mutation<MessageResponse, UpdateProductRequest>({
       query: ({ formData, userId, productId }) => ({
         url: `${productId}?id=${userId}`,
@@ -104,6 +113,7 @@ export const productAPI = createApi({
 });
 
 export const {
+  useDeleteReviewMutation,
   useNewReviewMutation,
   useAllReviewsOfProductQuery,
   useLatestProductsQuery,

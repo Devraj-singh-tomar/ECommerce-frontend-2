@@ -1,6 +1,7 @@
 import { Navigate, useParams } from "react-router-dom";
 import {
   useAllReviewsOfProductQuery,
+  useDeleteReviewMutation,
   useNewReviewMutation,
   useProductDetailsQuery,
 } from "../redux/api/productAPI";
@@ -35,6 +36,7 @@ const ProductDetails = () => {
   const { isLoading, isError, data } = useProductDetailsQuery(params.id!);
   const reviewsResponse = useAllReviewsOfProductQuery(params.id!);
   const [createReview] = useNewReviewMutation();
+  const [deleteReview] = useDeleteReviewMutation();
 
   if (isError) return <Navigate to={"/not-found"} />;
 
@@ -86,6 +88,11 @@ const ProductDetails = () => {
 
     setReviewButtonDisabled(false);
 
+    responseToast(res, null, "");
+  };
+
+  const deleteReviewHandler = async (reviewId: string) => {
+    const res = await deleteReview({ reviewId, userId: user?._id });
     responseToast(res, null, "");
   };
 
@@ -208,7 +215,12 @@ const ProductDetails = () => {
             <Skeleton width="100%" length={3} />
           ) : (
             reviewsResponse.data?.reviews.map((review) => (
-              <ReviewCard key={review._id} review={review} />
+              <ReviewCard
+                deleteReviewHandler={deleteReviewHandler}
+                userId={user?._id}
+                key={review._id}
+                review={review}
+              />
             ))
           )}
         </div>
@@ -217,7 +229,15 @@ const ProductDetails = () => {
   );
 };
 
-const ReviewCard = ({ review }: { review: Review }) => (
+const ReviewCard = ({
+  review,
+  userId,
+  deleteReviewHandler,
+}: {
+  userId?: string;
+  review: Review;
+  deleteReviewHandler: (reviewId: string) => void;
+}) => (
   <div className="review">
     <div>
       <img
@@ -231,6 +251,12 @@ const ReviewCard = ({ review }: { review: Review }) => (
     </div>
     <RatingComponent value={review.rating} />
     <p>{review.comment}</p>
+
+    {userId === review.user._id && (
+      <h3 title="Delete Review" onClick={() => deleteReviewHandler(review._id)}>
+        <AiOutlineClose />
+      </h3>
+    )}
   </div>
 );
 

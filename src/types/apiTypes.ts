@@ -94,6 +94,11 @@ export type NewReviewRequest = {
   productId: string;
 };
 
+export type DeleteReviewRequest = {
+  userId?: string;
+  reviewId: string;
+};
+
 export type NewOrderRequest = {
   shippingInfo: ShippingInfo;
   orderItems: CartItem[];
