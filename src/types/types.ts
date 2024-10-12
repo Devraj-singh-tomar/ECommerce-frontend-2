@@ -15,12 +15,25 @@ export interface Product {
   category: string;
   description: string;
   ratings: number;
+  numOfReviews: number;
   photos: {
     public_id: string;
     url: string;
   }[];
   _id: string;
 }
+
+export type Review = {
+  rating: number;
+  comment: string;
+  product: string;
+  user: {
+    name: string;
+    _id: string;
+    photo: string;
+  };
+  _id: string;
+};
 
 export type ShippingInfo = {
   address: string;

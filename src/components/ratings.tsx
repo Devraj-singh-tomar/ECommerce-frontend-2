@@ -7,13 +7,7 @@ const RatingComponent = ({ value = 0 }: { value: number }) => {
     IconFilled: <IoStar />,
     IconOutline: <IoIosStarOutline />,
     value,
-    styles: {
-      fontSize: "1.7rem",
-      justifyContent: "flex-end",
-      position: "absolute",
-      top: 0,
-      right: 0,
-    },
+    styles: { display: "flex", justifyContent: "flex-start" },
   });
 
   return <Ratings />;

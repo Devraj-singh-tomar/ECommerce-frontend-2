@@ -6,6 +6,7 @@ import {
   Order,
   Pie,
   Product,
+  Review,
   ShippingInfo,
   Stats,
   User,
@@ -42,6 +43,11 @@ export type UserResponse = {
 export type AllProductsResponse = {
   success: boolean;
   products: Product[];
+};
+
+export type AllReviewsOfProductResponse = {
+  success: boolean;
+  reviews: Review[];
 };
 
 export type CategoriesResponse = {
