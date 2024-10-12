@@ -196,7 +196,7 @@ const ProductDetails = () => {
           {reviewsResponse.isLoading ? null : (
             <>
               <h2 id="reviewScroll">Reviews</h2>
-              <h3 onClick={showDialog}>rate this product</h3>
+              {user && <h3 onClick={showDialog}>rate this product</h3>}
             </>
           )}
         </div>
