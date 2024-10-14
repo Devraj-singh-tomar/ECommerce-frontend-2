@@ -113,7 +113,7 @@ const Productmanagement = () => {
           <>
             <section>
               <strong>ID - {data?.product._id}</strong>
-              <img src={transformImage(photos?.[0]?.url)} alt="Product" />
+              <img src={transformImage(photos[0]?.url)} alt="Product" />
               <p>{name}</p>
               {stock > 0 ? (
                 <span className="green">{stock} Available</span>
